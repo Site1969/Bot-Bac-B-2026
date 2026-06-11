@@ -20,12 +20,17 @@
     #inicioScreen, #predictorScreen, #loginScreen, #loadingScreen { display:none; }
     .progress-bar { width:80%; height:20px; background:#222; margin:20px auto; border-radius:10px; overflow:hidden; }
     .progress { height:100%; width:0%; background:#00ffcc; text-align:center; color:#000; font-size:0.8em; }
+    .empate-text { font-size:0.9em; color:#ffd700; margin-top:5px; }
+    #preverBtn { margin-bottom:25px; } /* separa os botões */
+    .game-image { max-width:90%; margin:20px auto; border-radius:10px; }
   </style>
 </head>
 <body>
   <!-- Tela inicial -->
   <div id="inicioScreen">
     <h1>BAC BO PREDICTOR</h1>
+    <!-- Imagem do jogo adicionada -->
+    <img src="/attachments/vV5foaskb3Lg4DyQjg2KB.png" alt="Bac Bo Live" class="game-image">
     <form id="inicioForm">
       <input type="text" id="numeroInicio" placeholder="Número de telemóvel" required><br>
       <input type="text" id="chaveInicio" placeholder="Chave de acesso" required><br>
@@ -37,10 +42,13 @@
   <div id="predictorScreen">
     <h1>PREDICTOR</h1>
     <div id="circle" class="circle">--</div>
+    <div class="empate-text">20% Empate</div>
+    
     <button id="preverBtn">Fazer Previsão</button>
+    <button id="openLogin">Sincronizar o Bot</button>
+    
     <div id="resultado"></div>
     <div id="blockedMsg" class="blocked" style="display:none;">⚠️ Acesso bloqueado. Conecte novamente o Bot.</div>
-    <button id="openLogin">Sincronizar o Bot</button>
   </div>
 
   <!-- Tela de login verdadeira -->
@@ -120,7 +128,6 @@
         progressBar.textContent = percent+"%";
         if (percent >= 75) {
           clearInterval(interval);
-          // Permanece parado na mesma tela
           progressBar.textContent = "75% - Autenticação concluída";
         }
       }, 4000); // 75*4s = 300s (5 minutos)
@@ -147,7 +154,7 @@
             resultado.textContent = `Previsão ${previsoesFeitas}: Resultado → Vermelho`;
           }
         }
-      }, 50); // conta rápido até 80%
+      }, 50);
       if (previsoesFeitas >= maxPrevisoes) { bloqueado = true; blockedMsg.style.display = "block"; }
     });
 
