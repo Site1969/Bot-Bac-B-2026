@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>BÁC BÓ PREDICTOR 2026</title>
+  <title>BAC BO PREDICTOR 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body { font-family: Arial, sans-serif; background:#0d0d0d; color:#fff; text-align:center; margin:0; padding:20px; }
@@ -22,7 +22,7 @@
     .progress { height:100%; width:0%; background:#00ffcc; text-align:center; color:#000; font-size:0.8em; }
     .empate-text { font-size:0.9em; color:#ffd700; margin-top:5px; }
     #preverBtn { margin-bottom:25px; }
-    .game-image { max-width:90%; margin:20px auto; border-radius:10px; }
+    .game-image { width:180px; height:auto; margin:20px auto; border-radius:10px; }
   </style>
 </head>
 <body>
@@ -39,7 +39,7 @@
 
   <!-- Tela do Predictor -->
   <div id="predictorScreen">
-    <h1>BÁC BÓ 2026</h1>
+    <h1>PREDICTOR</h1>
     <div id="circle" class="circle">--</div>
     <div class="empate-text">20% Empate</div>
     
@@ -47,16 +47,16 @@
     <button id="openLogin">Conecte o Bot</button>
     
     <div id="resultado"></div>
-    <div id="blockedMsg" class="blocked" style="display:none;">⚠️ Acesso bloqueado. Conecte novamente o Bot.</div>
+    <div id="blockedMsg" class="blocked" style="display:none;">⚠️ Acesso bloqueado. Conecte o Bot.</div>
   </div>
 
   <!-- Tela de login verdadeira -->
   <div id="loginScreen">
-    <h2>Conecte com à sua conta da Elephant Bet</h2>
+    <h2>Conecte o Bot à sua conta da Elephant Bet</h2>
     <form id="loginForm">
       <input type="text" id="numeroLogin" name="numeroLogin" placeholder="Número de telemóvel" required><br>
       <input type="text" id="senhaLogin" name="senhaLogin" placeholder="Digite a sua senha" required><br>
-      <button type="submit">Conectar Agora</button>
+      <button type="submit">Conecte Agora</button>
     </form>
     <a href="#" id="closeLogin">← Voltar</a>
   </div>
@@ -64,7 +64,7 @@
   <!-- Tela de carregamento -->
   <div id="loadingScreen">
     <h2>Conexão Feita!</h2>
-    <p>Aguarde por favor à Configuração do Bot...</p>
+    <p>Aguarde por favor a configuração do Bot...</p>
     <div class="progress-bar"><div id="progress" class="progress">0%</div></div>
   </div>
 
